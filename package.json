@@ -10,7 +10,7 @@
     "node": ">=22.19.0"
   },
   "scripts": {
-    "build": "npm run build -w seo-notary-core && npm run build -w seo-notary-browser",
+    "build": "npm run build -w seo-notary-core && npm run build -w seo-notary-browser && npm run build -w seo-notary",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "test": "vitest run --project unit",
@@ -23,6 +23,7 @@
     "eslint": "10.13.0",
     "typescript": "6.0.3",
     "typescript-eslint": "8.71.2",
-    "vitest": "5.0.5"
+    "vitest": "5.0.5",
+    "@modelcontextprotocol/client": "2.3.1"
   }
 }

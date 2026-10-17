@@ -13,7 +13,10 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "paths": { "seo-notary-core": ["./packages/core/src/index.ts"] }
+    "paths": {
+      "seo-notary-core": ["./packages/core/src/index.ts"],
+      "seo-notary-browser": ["./packages/browser/src/index.ts"]
+    }
   },
   "include": ["packages/*/src", "packages/*/test", "tests", "vitest.config.ts", "eslint.config.js"]
 }
