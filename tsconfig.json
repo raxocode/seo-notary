@@ -18,5 +18,5 @@
       "seo-notary-browser": ["./packages/browser/src/index.ts"]
     }
   },
-  "include": ["packages/*/src", "packages/*/test", "tests", "vitest.config.ts", "eslint.config.js"]
+  "include": ["packages/*/src", "packages/*/test", "tests", "demo", "vitest.config.ts", "eslint.config.js"]
 }

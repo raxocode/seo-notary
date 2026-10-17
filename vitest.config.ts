@@ -31,10 +31,19 @@ export default defineConfig({
         extends: true,
         test: {
           name: "browser",
-          include: ["packages/browser/test/**/*.test.ts", "packages/*/test/**/*.browser.test.ts"],
+          include: ["packages/browser/test/**/*.test.ts", "packages/*/test/**/*.browser.test.ts", "demo/**/*.browser.test.ts"],
           testTimeout: 60_000,
           hookTimeout: 60_000,
           fileParallelism: false,
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: "smoke",
+          include: ["tests/smoke/**/*.test.ts"],
+          testTimeout: 240_000,
+          hookTimeout: 240_000,
         },
       },
     ],

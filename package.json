@@ -15,7 +15,9 @@
     "lint": "eslint .",
     "test": "vitest run --project unit",
     "test:security": "vitest run --project security",
-    "test:browser": "vitest run --project browser"
+    "test:browser": "vitest run --project browser",
+    "test:smoke": "vitest run --project smoke",
+    "demo": "node demo/server.ts"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
