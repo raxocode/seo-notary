@@ -1,6 +1,6 @@
 {
   "name": "seo-notary-browser",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0",
   "description": "Optional Playwright adapter for SEO Notary: compares raw HTML with the rendered DOM.",
   "license": "MIT",
   "author": "Raxocode <engineering@raxocode.com>",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "playwright-core": "1.64.1",
-    "seo-notary-core": "0.1.0-alpha.0"
+    "seo-notary-core": "0.1.0"
   },
   "publishConfig": {
     "access": "public",

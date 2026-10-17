@@ -2,7 +2,7 @@
 
 Browser-free Tier 1 engine for SEO Notary: fetch one URL over HTTP, run deterministic rules on the response, return a stable report. No LLM, no crawling, no browser, no network calls other than the target (and optionally its `/robots.txt`).
 
-> Pre-alpha, unpublished. API may change before 0.1.0.
+> 0.1 early release: the API may change between 0.x versions.
 
 ```ts
 import { LocalRunner, NotaryError } from "seo-notary-core";

@@ -6,12 +6,12 @@
     "url": "https://github.com/raxocode/seo-notary",
     "source": "github"
   },
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "seo-notary",
-      "version": "0.1.0-alpha.0",
+      "version": "0.1.0",
       "runtimeHint": "npx",
       "packageArguments": [{ "type": "positional", "value": "mcp" }],
       "transport": { "type": "stdio" }

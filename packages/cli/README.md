@@ -2,8 +2,6 @@
 
 Verify what a web page really returns over HTTP and in a real browser. A CLI and local MCP server for coding agents and CI.
 
-> Pre-alpha, unpublished.
-
 ```bash
 seo-notary verify http://localhost:3000/                 # raw HTTP and HTML, no browser
 seo-notary verify http://localhost:3000/ --tier browser  # also compare raw vs rendered DOM

@@ -21,7 +21,7 @@ The server is an ordinary stdio command:
 npx -y seo-notary mcp
 ```
 
-The package is not published yet. From a checkout, after `npm install && npm run build`:
+From a checkout, after `npm install && npm run build`:
 
 ```bash
 node packages/cli/dist/bin.js mcp

@@ -4,7 +4,7 @@
 
 HTTP and real-browser checks for Claude Code, Cursor, VS Code and CI. Deterministic. No LLM. One command.
 
-> **Status: pre-alpha.** Not published to npm yet. APIs and rule output may change before 0.1.0.
+> **Status: 0.1 (early release).** APIs, rule output and rule severities may still change between 0.x releases; see the [changelog](CHANGELOG.md).
 
 Coding agents edit page code but cannot see what the page actually serves. Client-side scripts overwrite titles and canonicals, server rendering breaks, redirects bounce, and the agent reports "done" without evidence. SEO Notary fetches the page, runs deterministic rules over the response and the rendered DOM, and returns structured findings with stable exit codes.
 
@@ -33,21 +33,18 @@ That output is abridged from a real run of the [demo](demo/) in this repository.
 
 ## Quickstart
 
-Until the first npm release, run it from a checkout (Node `>=22.19.0`):
+Requires Node `>=22.19.0`.
 
 ```bash
-git clone https://github.com/raxocode/seo-notary.git && cd seo-notary
-npm install && npm run build
-
 # Tier 1: raw HTTP and HTML. No browser, nothing to download.
-node packages/cli/dist/bin.js verify http://localhost:3000/
+npx seo-notary verify http://localhost:3000/
 
 # Tier 2: also render the page in Chromium and compare raw vs rendered.
-node packages/cli/dist/bin.js install-browser
-node packages/cli/dist/bin.js verify http://localhost:3000/ --tier browser
+npx seo-notary install-browser
+npx seo-notary verify http://localhost:3000/ --tier browser
 ```
 
-After the release these become `npx seo-notary verify <url>` and `npx seo-notary install-browser`.
+To run from a checkout instead: `npm install && npm run build`, then `node packages/cli/dist/bin.js verify <url>`.
 
 Exit codes: `0` pass, `1` findings at or above `--fail-on` (default `error`), `2` operational failure (bad input, network, timeout, policy, browser). Use `--format json` for exactly one JSON document on stdout. Details: [docs/CLI.md](docs/CLI.md).
 

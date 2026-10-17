@@ -66,17 +66,22 @@ describe("packed packages", () => {
     expect(await readdir(browsers)).toEqual([]);
   }, 240_000);
 
-  it("browser tier says exactly how to fix a missing Chromium", async () => {
+  it("browser tier without the bundled Chromium: system Chrome fallback, or an exact fix message", async () => {
     const bin = join(consumer, "node_modules", ".bin", "seo-notary");
     const env = { ...process.env, PLAYWRIGHT_BROWSERS_PATH: browsers, HOME: join(work, "empty-home") };
     await mkdir(env.HOME, { recursive: true });
-    const failed = await exec(bin, ["verify", srv.url("/"), "--tier", "browser"], { env }).then(
-      () => null,
-      (e: { code?: number; stderr?: string }) => e,
+    const outcome = await exec(bin, ["verify", srv.url("/"), "--tier", "browser", "--format", "json"], { env }).then(
+      (r) => ({ code: 0, stdout: r.stdout, stderr: "" }),
+      (e: { code?: number; stdout?: string; stderr?: string }) => ({ code: e.code, stdout: e.stdout ?? "", stderr: e.stderr ?? "" }),
     );
-    expect(failed?.code).toBe(2);
-    expect(failed?.stderr).toContain("BROWSER_UNAVAILABLE");
-    expect(failed?.stderr).toContain("seo-notary install-browser");
+    if (outcome.code === 0) {
+      // A system Chrome was found (channel "chrome"), which is what happens on GitHub's ubuntu runners.
+      expect(JSON.parse(outcome.stdout).execution.tier).toBe("browser");
+    } else {
+      expect(outcome.code).toBe(2);
+      expect(outcome.stderr).toContain("BROWSER_UNAVAILABLE");
+      expect(outcome.stderr).toContain("seo-notary install-browser");
+    }
   }, 120_000);
 
   it("the library entry points import in a plain Node ESM consumer", async () => {

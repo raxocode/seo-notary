@@ -2,8 +2,6 @@
 
 Optional Playwright adapter for SEO Notary. It loads a page in headless Chromium, snapshots the rendered DOM, and lets `seo-notary-core` compare it with the raw HTTP response (`RENDER_*`, `HYDRATION_ERROR_DETECTED` and `BROWSER_*` rules).
 
-> Pre-alpha, unpublished.
-
 ```ts
 import { LocalRunner } from "seo-notary-core";
 import { BrowserManager } from "seo-notary-browser";
