@@ -1,0 +1,16 @@
+name: Rule or feature request
+description: Propose a new rule or an improvement.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What can an agent or CI job not currently verify? Rules must be deterministic and based on measured signals.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Suggested rule ID, severity, and what it should not claim.

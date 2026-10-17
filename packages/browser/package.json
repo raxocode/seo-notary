@@ -3,6 +3,23 @@
   "version": "0.1.0-alpha.0",
   "description": "Optional Playwright adapter for SEO Notary: compares raw HTML with the rendered DOM.",
   "license": "MIT",
+  "author": "Raxocode <engineering@raxocode.com>",
+  "homepage": "https://github.com/raxocode/seo-notary#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raxocode/seo-notary.git",
+    "directory": "packages/browser"
+  },
+  "bugs": {
+    "url": "https://github.com/raxocode/seo-notary/issues"
+  },
+  "keywords": [
+    "seo",
+    "playwright",
+    "rendering",
+    "hydration",
+    "ai-agents"
+  ],
   "type": "module",
   "engines": {
     "node": ">=22.19.0"
@@ -25,5 +42,9 @@
   "dependencies": {
     "playwright-core": "1.64.1",
     "seo-notary-core": "0.1.0-alpha.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

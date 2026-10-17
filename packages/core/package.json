@@ -3,6 +3,24 @@
   "version": "0.1.0-alpha.0",
   "description": "Deterministic HTTP/HTML verification engine for SEO Notary (browser-free).",
   "license": "MIT",
+  "author": "Raxocode <engineering@raxocode.com>",
+  "homepage": "https://github.com/raxocode/seo-notary#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raxocode/seo-notary.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/raxocode/seo-notary/issues"
+  },
+  "keywords": [
+    "seo",
+    "technical-seo",
+    "http",
+    "html",
+    "verification",
+    "ai-agents"
+  ],
   "type": "module",
   "engines": {
     "node": ">=22.19.0"
@@ -26,5 +44,9 @@
     "parse5": "8.0.1",
     "undici": "8.12.2",
     "zod": "4.6.7"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

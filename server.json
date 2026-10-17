@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.raxocode/seo-notary",
+  "description": "Verify what a web page really returns over HTTP and in a browser. Deterministic, local, no LLM.",
+  "repository": {
+    "url": "https://github.com/raxocode/seo-notary",
+    "source": "github"
+  },
+  "version": "0.1.0-alpha.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "seo-notary",
+      "version": "0.1.0-alpha.0",
+      "runtimeHint": "npx",
+      "packageArguments": [{ "type": "positional", "value": "mcp" }],
+      "transport": { "type": "stdio" }
+    }
+  ]
+}

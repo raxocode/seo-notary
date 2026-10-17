@@ -1,0 +1,30 @@
+name: Bug report
+description: Something produced a wrong result, a crash, or a misleading finding.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Include the command or MCP call, the exit code, and the JSON report if you can (remove anything private).
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Output of `seo-notary --version` and `node --version`
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier
+      options: [http, browser]
+    validations:
+      required: true
