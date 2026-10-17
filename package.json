@@ -1,0 +1,27 @@
+{
+  "name": "seo-notary-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --project unit",
+    "test:security": "vitest run --project security"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "26.6.5",
+    "eslint": "10.13.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.2",
+    "vitest": "5.0.5"
+  }
+}

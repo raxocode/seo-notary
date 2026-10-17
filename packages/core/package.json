@@ -1,0 +1,30 @@
+{
+  "name": "seo-notary-core",
+  "version": "0.1.0-alpha.0",
+  "description": "Deterministic HTTP/HTML verification engine for SEO Notary (browser-free).",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "parse5": "8.0.1",
+    "undici": "8.12.2",
+    "zod": "4.6.7"
+  }
+}
