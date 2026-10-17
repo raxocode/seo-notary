@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "Optional Playwright adapter for SEO Notary: compares raw HTML with the rendered DOM.",
   "license": "MIT",
-  "author": "Raxocode <engineering@raxocode.com>",
-  "homepage": "https://github.com/raxocode/seo-notary#readme",
+  "author": "Raxocode <engineering@raxocode.com> (https://raxocode.com)",
+  "homepage": "https://seonotary.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/raxocode/seo-notary.git",

@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "description": "Verify what a web page really returns over HTTP and in a real browser. CLI and local MCP server for coding agents and CI.",
   "license": "MIT",
-  "author": "Raxocode <engineering@raxocode.com>",
-  "homepage": "https://github.com/raxocode/seo-notary#readme",
+  "author": "Raxocode <engineering@raxocode.com> (https://raxocode.com)",
+  "homepage": "https://seonotary.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/raxocode/seo-notary.git",

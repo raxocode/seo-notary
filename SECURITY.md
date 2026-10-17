@@ -2,7 +2,7 @@
 
 ## Reporting a vulnerability
 
-Please report suspected vulnerabilities privately to engineering@raxocode.com, or through GitHub's private vulnerability reporting once enabled on this repository. Do not open public issues for security problems.
+Please report suspected vulnerabilities privately to engineering@raxocode.com, or through [GitHub private vulnerability reporting](https://github.com/raxocode/seo-notary/security/advisories/new). Do not open public issues for security problems.
 
 Include the affected version, a description of the impact, and reproduction steps. We aim to acknowledge reports promptly and will coordinate disclosure with you.
 

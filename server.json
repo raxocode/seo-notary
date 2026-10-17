@@ -6,6 +6,7 @@
     "url": "https://github.com/raxocode/seo-notary",
     "source": "github"
   },
+  "websiteUrl": "https://seonotary.com",
   "version": "0.1.0",
   "packages": [
     {
@@ -13,8 +14,15 @@
       "identifier": "seo-notary",
       "version": "0.1.0",
       "runtimeHint": "npx",
-      "packageArguments": [{ "type": "positional", "value": "mcp" }],
-      "transport": { "type": "stdio" }
+      "packageArguments": [
+        {
+          "type": "positional",
+          "value": "mcp"
+        }
+      ],
+      "transport": {
+        "type": "stdio"
+      }
     }
   ]
 }

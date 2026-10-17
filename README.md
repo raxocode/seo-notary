@@ -97,4 +97,4 @@ Docs: [Architecture](docs/ARCHITECTURE.md), [CLI](docs/CLI.md), [MCP](docs/MCP.m
 
 Source code is released under the [MIT License](LICENSE). The Raxocode and SEO Notary names and logos are not covered by that license; see [TRADEMARK.md](TRADEMARK.md).
 
-Built by [Raxocode](https://raxocode.com).
+Built by [Raxocode](https://raxocode.com). Project site: [seonotary.com](https://seonotary.com).

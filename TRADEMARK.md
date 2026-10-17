@@ -14,4 +14,4 @@ You may not, without written permission:
 
 Forks are welcome under the MIT License; please choose a distinct name.
 
-Contact: engineering@raxocode.com
+Contact: engineering@raxocode.com ([raxocode.com](https://raxocode.com), [seonotary.com](https://seonotary.com))
