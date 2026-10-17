@@ -9,7 +9,10 @@ import { LocalRunner, NotaryError } from "seo-notary-core";
 
 const runner = new LocalRunner();
 try {
-  const report = await runner.verify({ target_url: "http://localhost:3000/", fail_on: "error" });
+  const report = await runner.verify({
+    target_url: "http://localhost:3000/",
+    fail_on: "error",
+  });
   console.log(report.status, report.findings);
 } catch (err) {
   if (err instanceof NotaryError) console.error(err.code, err.message); // operational failure

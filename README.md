@@ -8,13 +8,13 @@ SEO Notary fetches a URL, runs deterministic rules over the HTTP response and HT
 
 ## Status
 
-| Component | State |
-|---|---|
+| Component                                                                   | State                    |
+| --------------------------------------------------------------------------- | ------------------------ |
 | `seo-notary-core`: 14 HTTP/HTML rules, URL and network policy, typed errors | implemented, unpublished |
-| `seo-notary-browser`: rendered-DOM checks via Playwright | in development |
-| `seo-notary` CLI (`verify`, `rules`, `doctor`, `install-browser`, `mcp`) | in development |
-| Local MCP server (`verify_url`, `get_rule_catalog`) | in development |
-| Demo, CI matrix, npm release | in development |
+| `seo-notary-browser`: rendered-DOM checks via Playwright                    | in development           |
+| `seo-notary` CLI (`verify`, `rules`, `doctor`, `install-browser`, `mcp`)    | in development           |
+| Local MCP server (`verify_url`, `get_rule_catalog`)                         | in development           |
+| Demo, CI matrix, npm release                                                | in development           |
 
 ## What it checks
 

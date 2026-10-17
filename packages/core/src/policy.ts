@@ -85,3 +85,19 @@ export function admitAddresses(addresses: readonly string[], policy: PolicyOptio
   }
   if (allPublic) state.sawPublic = true;
 }
+
+/** Parses, resolves and admits a URL in one step (used for browser requests, where the browser does its own connect). */
+export async function admitUrl(
+  raw: string,
+  kind: UrlKind,
+  maxLength: number,
+  policy: PolicyOptions,
+  state: PolicyState,
+  resolve: (hostname: string) => Promise<readonly { address: string }[]>,
+): Promise<URL> {
+  const url = parseUrl(raw, kind, maxLength, policy);
+  const literal = literalAddress(url.hostname);
+  const addresses = literal ? [literal] : (await resolve(url.hostname)).map((a) => a.address);
+  admitAddresses(addresses, policy, state);
+  return url;
+}

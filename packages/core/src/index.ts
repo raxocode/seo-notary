@@ -6,6 +6,7 @@ export {
   ReportSchema,
   FindingSchema,
   SeveritySchema,
+  RenderedDomSnapshotSchema,
   SEVERITY_RANK,
   type VerifyRequest,
   type VerifyRequestInput,
@@ -13,9 +14,21 @@ export {
   type Finding,
   type Severity,
   type RawHttpSnapshot,
+  type RenderedDomSnapshot,
 } from "./schemas.js";
 export { LocalRunner, sortFindings, type Runner, type LocalRunnerOptions } from "./verify.js";
-export { RULES, RULE_IDS, type RuleDefinition } from "./rules.js";
+export { RULES, type RuleDefinition } from "./rules.js";
+export { RULE_CATALOG, RULE_IDS, type RuleInfo } from "./catalog.js";
+export {
+  BROWSER_RULES,
+  isHydrationMessage,
+  type BrowserCollector,
+  type BrowserCollectInput,
+  type BrowserMode,
+  type BrowserRuleDefinition,
+} from "./browser.js";
+export { admitUrl, admitAddresses, parseUrl, type PolicyState } from "./policy.js";
+export { defaultResolve } from "./fetcher.js";
 export { classifyAddress, type AddressClass } from "./ip.js";
 export { sanitizeText, redactUrl } from "./sanitize.js";
 export type { PolicyOptions, PolicyProfile } from "./policy.js";

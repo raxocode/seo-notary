@@ -61,7 +61,34 @@ export const RawHttpSnapshotSchema = z.strictObject({
 export type RawHttpSnapshot = z.infer<typeof RawHttpSnapshotSchema>;
 
 // Filled by the browser tier; always null for tier "http".
-export const RenderedDomSnapshotSchema = z.strictObject({}).passthrough();
+export const RenderedDomSnapshotSchema = z.strictObject({
+  status: z.number().int().nullable(),
+  final_url: Bounded(2100),
+  title: Bounded(400).nullable(),
+  meta_description: Bounded(400).nullable(),
+  canonical: Bounded(2100).nullable(),
+  robots_directives: z.array(Bounded(100)).max(50),
+  word_count: z.number().int().nonnegative(),
+  console_errors: z.array(Bounded(400)).max(50),
+  page_errors: z.array(Bounded(400)).max(50),
+  failed_requests: z.array(z.strictObject({ url: Bounded(500), reason: Bounded(200) })).max(50),
+  observed: z.strictObject({
+    console_errors: z.number().int().nonnegative(),
+    page_errors: z.number().int().nonnegative(),
+    failed_requests: z.number().int().nonnegative(),
+  }),
+  timings: z.strictObject({
+    navigation_ms: z.number().int().nonnegative(),
+    settle_ms: z.number().int().nonnegative(),
+    total_ms: z.number().int().nonnegative(),
+  }),
+  blocked_resource_classes: z.array(z.string().max(30)).max(10),
+  screenshot: z
+    .strictObject({ format: z.literal("png"), bytes: z.number().int().nonnegative(), data_base64: z.string().max(2_000_000) })
+    .nullable(),
+  notes: z.array(Bounded(200)).max(10),
+});
+export type RenderedDomSnapshot = z.infer<typeof RenderedDomSnapshotSchema>;
 
 export const ReportSchema = z.strictObject({
   schema_version: z.literal(SCHEMA_VERSION),

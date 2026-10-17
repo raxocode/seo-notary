@@ -12,6 +12,11 @@ export interface Limits {
   maxFindingsPerRule: number;
   titleMinChars: number;
   titleMaxChars: number;
+  navigationTimeoutMs: number;
+  settleMs: number;
+  maxConsoleEntries: number;
+  maxFailedRequests: number;
+  maxScreenshotBytes: number;
 }
 
 // Hard limits are constants, never request fields.
@@ -27,4 +32,9 @@ export const DEFAULT_LIMITS: Readonly<Limits> = Object.freeze({
   maxFindingsPerRule: 20,
   titleMinChars: 10,
   titleMaxChars: 70,
+  navigationTimeoutMs: 15_000,
+  settleMs: 500,
+  maxConsoleEntries: 20,
+  maxFailedRequests: 20,
+  maxScreenshotBytes: 512 * 1024,
 });

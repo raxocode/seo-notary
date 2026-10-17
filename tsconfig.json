@@ -12,7 +12,8 @@
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": { "seo-notary-core": ["./packages/core/src/index.ts"] }
   },
   "include": ["packages/*/src", "packages/*/test", "tests", "vitest.config.ts", "eslint.config.js"]
 }

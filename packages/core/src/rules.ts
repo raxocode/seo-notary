@@ -341,5 +341,3 @@ export const RULES: readonly RuleDefinition[] = [
     },
   },
 ];
-
-export const RULE_IDS: readonly string[] = RULES.map((r) => r.id);

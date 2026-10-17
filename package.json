@@ -10,11 +10,12 @@
     "node": ">=22.19.0"
   },
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build -w seo-notary-core && npm run build -w seo-notary-browser",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "test": "vitest run --project unit",
-    "test:security": "vitest run --project security"
+    "test:security": "vitest run --project security",
+    "test:browser": "vitest run --project browser"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

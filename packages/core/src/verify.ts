@@ -1,4 +1,6 @@
 import { DEFAULT_LIMITS, SCHEMA_VERSION, type Limits } from "./constants.js";
+import { BROWSER_RULES, type BrowserCollector, type BrowserRuleContext } from "./browser.js";
+import { RULE_IDS } from "./catalog.js";
 import { NotaryError } from "./errors.js";
 import { fetchPage, type FetchedResponse, type FetchInternals } from "./fetcher.js";
 import { decodeBody, parseHtml, parseXRobotsTag, type ParsedHtml } from "./html.js";
@@ -10,11 +12,12 @@ import {
   SEVERITY_RANK,
   type Finding,
   type RawHttpSnapshot,
+  type RenderedDomSnapshot,
   type Report,
   type Severity,
   type VerifyRequest,
 } from "./schemas.js";
-import { RULES, RULE_IDS, snapshotCanonical, type RobotsTxtResult, type RuleContext } from "./rules.js";
+import { RULES, snapshotCanonical, type FindingDraft, type RobotsTxtResult, type RuleContext } from "./rules.js";
 import { VERSION, userAgent } from "./version.js";
 
 export interface Runner {
@@ -30,6 +33,8 @@ export interface LocalRunnerOptions {
   allowedPorts?: readonly number[];
   /** Test-only seams (see FetchInternals). */
   internals?: FetchInternals;
+  /** Required for tier "browser" (provided by seo-notary-browser). The creator closes it. */
+  browser?: BrowserCollector;
 }
 
 const HTML_TYPES = new Set(["text/html", "application/xhtml+xml"]);
@@ -98,8 +103,9 @@ export class LocalRunner implements Runner {
 
   private async run(input: unknown): Promise<Report> {
     const req = parseRequest(input);
-    if (req.tier === "browser") {
-      throw new NotaryError("BROWSER_UNAVAILABLE", "the browser tier is not available in seo-notary-core; install seo-notary-browser");
+    const collector = this.options.browser;
+    if (req.tier === "browser" && !collector) {
+      throw new NotaryError("BROWSER_UNAVAILABLE", "no browser is configured; install seo-notary-browser and run `seo-notary install-browser`");
     }
     const started = Date.now();
     const startedAt = new Date(started).toISOString();
@@ -111,7 +117,21 @@ export class LocalRunner implements Runner {
 
     const robotsTxt = req.check_robots_txt ? await this.fetchRobots(res, base) : null;
     const ctx = this.buildContext(res, robotsTxt);
-    return this.buildReport(req, res, ctx, started, startedAt);
+    let rendered: RenderedDomSnapshot | null = null;
+    if (req.tier === "browser" && collector) {
+      rendered = await this.guard(() =>
+        collector.collect({
+          url: req.target_url,
+          mode: req.mode ?? "faithful",
+          policy,
+          limits: this.limits,
+          signal,
+          includeScreenshot: req.include_screenshot,
+          internals: this.options.internals,
+        }),
+      );
+    }
+    return this.buildReport(req, res, ctx, rendered, started, startedAt);
   }
 
   private async guard<T>(fn: () => Promise<T>): Promise<T> {
@@ -161,17 +181,20 @@ export class LocalRunner implements Runner {
     };
   }
 
-  private buildReport(req: VerifyRequest, res: FetchedResponse, ctx: RuleContext, started: number, startedAt: string): Report {
+  private buildReport(
+    req: VerifyRequest,
+    res: FetchedResponse,
+    ctx: RuleContext,
+    rendered: RenderedDomSnapshot | null,
+    started: number,
+    startedAt: string,
+  ): Report {
     const allow = req.rules ? new Set(req.rules) : null;
     const findings: Finding[] = [];
     let executed = 0;
     let withFindings = 0;
-    for (const rule of RULES) {
-      if (allow && !allow.has(rule.id)) continue;
-      if (rule.requires === "html" && !ctx.isHtml) continue;
-      if (rule.requires === "robots_txt" && ctx.robotsTxt === null) continue;
+    const emit = (rule: { id: string; category: string; defaultSeverity: Severity }, drafts: FindingDraft[]): void => {
       executed++;
-      const drafts = rule.run(ctx);
       if (drafts.length > 0) withFindings++;
       for (const d of drafts) {
         findings.push({
@@ -190,6 +213,28 @@ export class LocalRunner implements Runner {
             : {}),
           ...(d.remediation ? { remediation: sanitizeText(d.remediation, this.limits.maxEvidenceChars) } : {}),
         });
+      }
+    };
+    for (const rule of RULES) {
+      if (allow && !allow.has(rule.id)) continue;
+      if (rule.requires === "html" && !ctx.isHtml) continue;
+      if (rule.requires === "robots_txt" && ctx.robotsTxt === null) continue;
+      emit(rule, rule.run(ctx));
+    }
+    if (rendered) {
+      const bctx: BrowserRuleContext = {
+        raw: {
+          title: bounded(ctx.html?.title),
+          metaDescription: bounded(ctx.html?.metaDescription),
+          canonical: bounded(ctx.html ? snapshotCanonical(ctx) : null, 2100),
+          metaRobots: ctx.robotsSource.meta.map((d) => sanitizeText(d, 100)),
+        },
+        rendered,
+        limits: this.limits,
+      };
+      for (const rule of BROWSER_RULES) {
+        if (allow && !allow.has(rule.id)) continue;
+        emit(rule, rule.run(bctx));
       }
     }
     const sorted = sortFindings(findings);
@@ -214,15 +259,15 @@ export class LocalRunner implements Runner {
       target_url: req.target_url.slice(0, 2100),
       status: failed ? "fail" : "pass",
       execution: {
-        tier: "http",
-        mode: null,
+        tier: req.tier,
+        mode: rendered ? (req.mode ?? "faithful") : null,
         runner: "local",
         duration_ms: Date.now() - started,
         redirects_followed: res.redirects.length,
         started_at: startedAt,
       },
       summary: { passed: executed - withFindings, failed: count("error"), warnings: count("warning"), info: count("info") },
-      snapshots: { raw_http: raw, rendered_dom: null },
+      snapshots: { raw_http: raw, rendered_dom: rendered },
       findings: sorted,
     });
   }

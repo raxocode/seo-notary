@@ -46,7 +46,7 @@ export interface FetchedResponse {
 const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
 const DROPPED_HEADERS = new Set(["set-cookie", "set-cookie2", "authorization", "proxy-authenticate"]);
 
-async function defaultResolve(hostname: string, family?: number): Promise<ResolvedAddress[]> {
+export async function defaultResolve(hostname: string, family?: number): Promise<ResolvedAddress[]> {
   const opts: { all: true; family?: number } = { all: true };
   if (family === 4 || family === 6) opts.family = family;
   return dnsLookup(hostname, opts);
